@@ -331,8 +331,11 @@ pio run -e lilygo-t-display-s3 -t upload
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-❤-red.svg)](https://github.com/sponsors/makepkg)
 
-**USDT BEP-20:** `0x4f85f29892b261fa8029f3cfd64211e166744733`  
-**USDT TRC-20:** `TDnjDg9HxySo1J2FPSrvWQejyZ4gHKiXSJ`
+**USDT BEP-20:** `0xd03499C9c6100Af624603b4D6fb185A65694745C`  
+
+**USDT TRC-20:** `TUAzeSrKeDYbt6HCs9PL6q1t5amHHdnnwR`
+
+**USDT SOLANA:** `2cecCCh8pzUNmEpjLQ3aa9sfPL5KXqANrmSfiiDWubCj`
 
 **⭐ Star this repo if you find it useful!**
 
