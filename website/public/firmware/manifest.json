@@ -6,13 +6,13 @@
     {
       "chipFamily": "ESP32",
       "parts": [
-        { "path": "https://github.com/makepkg/SecureGen/releases/latest/download/firmware-esp32.bin", "offset": 0 }
+        { "path": "/SecureGen/firmware/firmware-esp32.bin", "offset": 0 }
       ]
     },
     {
       "chipFamily": "ESP32-S3",
       "parts": [
-        { "path": "https://github.com/makepkg/SecureGen/releases/latest/download/firmware-s3.bin", "offset": 0 }
+        { "path": "/SecureGen/firmware/firmware-s3.bin", "offset": 0 }
       ]
     }
   ]
