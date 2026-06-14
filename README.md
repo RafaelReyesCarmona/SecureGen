@@ -329,6 +329,14 @@ pio run -e lilygo-t-display-s3 -t upload
 
 ---
 
+## 📺 Media & Reviews
+
+Here are some awesome reviews and community projects featuring this ESP32 device:
+
+*   [Video Review by Linuxndroid](https://www.youtube.com/shorts/3rvrnMr8oQQ) — A detailed look into the hardware setup and features.
+
+---
+
 ## 🤝 Support & Community
 
 - **Issues:** [GitHub Issues](https://github.com/makepkg/SecureGen/issues)
