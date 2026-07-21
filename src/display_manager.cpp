@@ -132,22 +132,18 @@ void DisplayManager::update() {
     drawTotpText(textToDraw);
 }
 
-
-// Ранняя инициализация для splash screen (минимальная подготовка)
-void DisplayManager::initForSplash() {
+void DisplayManager::initialize() {
 #ifdef LCD_POWER_ON_PIN
     pinMode(LCD_POWER_ON_PIN, OUTPUT);
     digitalWrite(LCD_POWER_ON_PIN, HIGH);
     delay(10);
 #endif
     tft.init();
-    
+    _started = true;
+
     // Apply display rotation from config (default: 1 = landscape, USB on right)
     uint8_t rotation = configManager.getDisplayRotation();
     tft.setRotation(rotation);
-    
-    tft.fillScreen(TFT_BLACK); // Очищаем экран чёрным для splash
-    tft.setTextDatum(MC_DATUM);
     
     // ⚠️ ВАЖНО: Настройка PWM ПОСЛЕ tft.init() т.к. init() сбрасывает пин на digitalWrite!
 #if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
@@ -160,31 +156,20 @@ void DisplayManager::initForSplash() {
 #endif
 }
 
+// Ранняя инициализация для splash screen (минимальная подготовка)
+void DisplayManager::initForSplash() {
+    if (!_started) initialize();
+    
+    tft.fillScreen(TFT_BLACK); // Очищаем экран чёрным для splash
+    tft.setTextDatum(MC_DATUM);
+}
+
 // Полная инициализация (для обычного UI)
 void DisplayManager::init() {
-#ifdef LCD_POWER_ON_PIN
-    pinMode(LCD_POWER_ON_PIN, OUTPUT);
-    digitalWrite(LCD_POWER_ON_PIN, HIGH);
-    delay(10);
-#endif
-    tft.init();
-    
-    // Apply display rotation from config (default: 1 = landscape, USB on right)
-    uint8_t rotation = configManager.getDisplayRotation();
-    tft.setRotation(rotation);
-    
+    if (!_started) initialize();
+
     tft.fillScreen(_currentThemeColors->background_dark); 
     tft.setTextDatum(MC_DATUM);
-    
-    // ⚠️ ВАЖНО: Настройка PWM ПОСЛЕ tft.init() т.к. init() сбрасывает пин!
-#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
-    ledcAttach(TFT_BL, 5000, 8);
-    ledcWrite(TFT_BL, 255);
-#else
-    ledcSetup(0, 5000, 8);
-    ledcAttachPin(TFT_BL, 0);
-    ledcWrite(0, 255);
-#endif
 
     headerSprite.createSprite(tft.width(), 35);
     headerSprite.setTextDatum(MC_DATUM);

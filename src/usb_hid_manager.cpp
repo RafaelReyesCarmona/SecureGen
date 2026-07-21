@@ -36,6 +36,44 @@ void UsbHidManager::sendPassword(const char* password) {
   if (!_started) return;
       while (*password) {
         char c = (unsigned char)*password;
+        if (c == 0xC3) {
+          password++;
+          uint8_t c2 = (unsigned char)*password;
+          switch (c2) {
+            case 0xB1: sendKey(';',NO_KEY_MOD); break;      // key 'ñ'
+            case 0x91: sendKey(';',KEY_LEFT_SHIFT); break;  // key 'Ñ'
+            case 0xA1: sendKey('\'',NO_KEY_MOD); sendKey('a',NO_KEY_MOD); break;     // key 'á' 
+            case 0x81: sendKey('\'',NO_KEY_MOD); sendKey('a',KEY_LEFT_SHIFT); break; // key 'Á'
+            case 0xA9: sendKey('\'',NO_KEY_MOD); sendKey('e',NO_KEY_MOD); break;     // key 'é' 
+            case 0x89: sendKey('\'',NO_KEY_MOD); sendKey('e',KEY_LEFT_SHIFT); break; // key 'É'
+            case 0xAD: sendKey('\'',NO_KEY_MOD); sendKey('i',NO_KEY_MOD); break;     // key 'í' 
+            case 0x8D: sendKey('\'',NO_KEY_MOD); sendKey('i',KEY_LEFT_SHIFT); break; // key 'Í'
+            case 0xB3: sendKey('\'',NO_KEY_MOD); sendKey('o',NO_KEY_MOD); break;     // key 'ó' 
+            case 0x93: sendKey('\'',NO_KEY_MOD); sendKey('o',KEY_LEFT_SHIFT); break; // key 'Ó'
+            case 0xBA: sendKey('\'',NO_KEY_MOD); sendKey('u',NO_KEY_MOD); break;     // key 'ú' 
+            case 0x9A: sendKey('\'',NO_KEY_MOD); sendKey('u',KEY_LEFT_SHIFT); break; // key 'Ú'
+            case 0xA2: sendKey('[',KEY_LEFT_SHIFT); sendKey('a',NO_KEY_MOD); break;     // key 'â' 
+            case 0x82: sendKey('[',KEY_LEFT_SHIFT); sendKey('a',KEY_LEFT_SHIFT); break;     // key 'Â' 
+            case 0xAA: sendKey('[',KEY_LEFT_SHIFT); sendKey('e',NO_KEY_MOD); break;     // key 'ê' 
+            case 0x8A: sendKey('[',KEY_LEFT_SHIFT); sendKey('e',KEY_LEFT_SHIFT); break;     // key 'Ê' 
+            case 0xAE: sendKey('[',KEY_LEFT_SHIFT); sendKey('i',NO_KEY_MOD); break;     // key 'î' 
+            case 0x8E: sendKey('[',KEY_LEFT_SHIFT); sendKey('i',KEY_LEFT_SHIFT); break;     // key 'Î' 
+            case 0xB4: sendKey('[',KEY_LEFT_SHIFT); sendKey('o',NO_KEY_MOD); break;     // key 'ô' 
+            case 0x94: sendKey('[',KEY_LEFT_SHIFT); sendKey('o',KEY_LEFT_SHIFT); break;     // key 'Ô' 
+            case 0xBB: sendKey('[',KEY_LEFT_SHIFT); sendKey('u',NO_KEY_MOD); break;     // key 'û' 
+            case 0x9B: sendKey('[',KEY_LEFT_SHIFT); sendKey('u',KEY_LEFT_SHIFT); break;     // key 'Û' 
+            case 0xA3: sendKey('\'',KEY_LEFT_SHIFT); sendKey('a',NO_KEY_MOD); break;     // key 'ä' 
+            case 0x83: sendKey('\'',KEY_LEFT_SHIFT); sendKey('a',KEY_LEFT_SHIFT); break;     // key 'Ä' 
+            case 0xAB: sendKey('\'',KEY_LEFT_SHIFT); sendKey('e',NO_KEY_MOD); break;     // key 'ë' 
+            case 0x8B: sendKey('\'',KEY_LEFT_SHIFT); sendKey('e',KEY_LEFT_SHIFT); break;     // key 'Ë' 
+            case 0xAF: sendKey('\'',KEY_LEFT_SHIFT); sendKey('i',NO_KEY_MOD); break;     // key 'ï' 
+            case 0x8F: sendKey('\'',KEY_LEFT_SHIFT); sendKey('i',KEY_LEFT_SHIFT); break;     // key 'Ï' 
+            case 0xB5: sendKey('\'',KEY_LEFT_SHIFT); sendKey('o',NO_KEY_MOD); break;     // key 'ö' 
+            case 0x95: sendKey('\'',KEY_LEFT_SHIFT); sendKey('o',KEY_LEFT_SHIFT); break;     // key 'Ö' 
+            case 0xBC: sendKey('\'',KEY_LEFT_SHIFT); sendKey('u',NO_KEY_MOD); break;     // key 'ü' 
+            case 0x9C: sendKey('\'',KEY_LEFT_SHIFT); sendKey('u',KEY_LEFT_SHIFT); break;     // key 'Ü' 
+          } // end switch c2
+        } // end if 
         switch(c) {
           case '@': sendKey('2',KEY_RIGHT_ALT); break;
           case '#': sendKey('3',KEY_RIGHT_ALT); break;

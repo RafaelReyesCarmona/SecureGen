@@ -2797,8 +2797,8 @@ function generatePassword() {
     const length = document.getElementById('password-length-slider').value;
     
     // Character sets for different types
-    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
-    const uppercase = 'ABCDEFGHJKLMNOPQRSTUVWXYZ'; // Without 'I'.
+    const lowercase = 'abcdefghijklmnopqrstuvwxyzñáéíóúäëïöüâêîôû';
+    const uppercase = 'ABCDEFGHJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜÂÊÎÔÛ'; // Without 'I'.
     const numbers = '23456789'; // Without '0','1'
     const specialChars = '!@#$%&/()=?,;.:-_';
     //const specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?~`\'"/';
@@ -2955,8 +2955,8 @@ function generatePasswordForEdit() {
     // Используем существующую логику генерации пароля
     const length = 14; // Стандартная длина
     
-    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
-    const uppercase = 'ABCDEFGHJKLMNOPQRSTUVWXYZ'; // Without 'I'.
+    const lowercase = 'abcdefghijklmnopqrstuvwxyzñáéíóúäëïöüâêîôû';
+    const uppercase = 'ABCDEFGHJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜÂÊÎÔÛ'; // Without 'I'.
     const numbers = '23456789'; // Without '0','1'
     const specialChars = '!@#$%&/()=?,;.:-_';
     //const specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?~`\'"/';

@@ -186,8 +186,12 @@
 ### 🌐 Web Management Interface
 - Runs on the device itself — no cloud, no external servers
 - Full TOTP and password management from any browser
-- Password generator with complexity settings without ambiguos characters (I, 1, 0)
-- Alphabet keys: "**abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ23456789!@#$%&/()=?,;.:-_**"
+- Password generator with complexity settings whithout ambiguos characters (I, 1, 0)
+- Alphabet keys: 
+  * Lower case : **abcdefghijklmnopqrstuvwxyzñáéíóúäëïöüâêîôû**
+  * Upper case : **ABCDEFGHJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜÂÊÎÔÛ**, whitout I.
+  * Numbers : **23456789** , whithout 0 and 1.
+  * Symbols: **!@#$%&/()=?,;.:-_**
 - Three network modes: WiFi client, AP hotspot, or fully offline
 - Multilingual interface — English, Russian, German, Chinese (Simplified), and Spanish
 

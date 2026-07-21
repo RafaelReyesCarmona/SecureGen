@@ -83,6 +83,7 @@ public:
     TFT_eSPI* getTft();
 
 private:
+    bool _started = false;
     // New state machine for TOTP display
     enum class TotpState { IDLE, SCRAMBLING, REVEALING };
 
@@ -137,10 +138,12 @@ private:
     bool _needsFullRedraw = false; // Set by applyRotation() to force main loop redraw
 
 public:
+    bool getStarted() { return _started; }
     bool needsFullRedraw() const { return _needsFullRedraw; }
     void clearFullRedrawFlag() { _needsFullRedraw = false; }
 
 private:
+    void initialize();
     
     // QR Code состояние
     bool _qrCodeActive = false;
