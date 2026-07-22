@@ -95,7 +95,7 @@ private:
     void drawTextBadge(int x, int y, const char* label, uint16_t bg);
     void drawDupBadge(int x, int y);
 
-    TFT_eSPI tft;
+    TFT_eSPI tft= TFT_eSPI();
     AnimationManager animationManager;
     TFT_eSprite headerSprite;
     TFT_eSprite batterySprite = TFT_eSprite(&tft);
