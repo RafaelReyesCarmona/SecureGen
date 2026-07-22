@@ -143,8 +143,6 @@ public:
     void clearFullRedrawFlag() { _needsFullRedraw = false; }
 
 private:
-    void initialize();
-    
     // QR Code состояние
     bool _qrCodeActive = false;
     unsigned long _qrCodeTimeout = 0;
