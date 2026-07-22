@@ -2800,7 +2800,7 @@ function generatePassword() {
     const lowercase = 'abcdefghijklmnopqrstuvwxyzñáéíóúäëïöüâêîôû';
     const uppercase = 'ABCDEFGHJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜÂÊÎÔÛ'; // Without 'I'.
     const numbers = '23456789'; // Without '0','1'
-    const specialChars = '!@#$%&/()=?,;.:-_';
+    const specialChars = '!@#$%&/()=?,;.:-_ºª';
     //const specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?~`\'"/';
 
     // Ensure at least one character from each type for strong passwords
@@ -2958,7 +2958,7 @@ function generatePasswordForEdit() {
     const lowercase = 'abcdefghijklmnopqrstuvwxyzñáéíóúäëïöüâêîôû';
     const uppercase = 'ABCDEFGHJKLMNOPQRSTUVWXYZÑÁÉÍÓÚÄËÏÖÜÂÊÎÔÛ'; // Without 'I'.
     const numbers = '23456789'; // Without '0','1'
-    const specialChars = '!@#$%&/()=?,;.:-_';
+    const specialChars = '!@#$%&/()=?,;.:-_ºª';
     //const specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?~`\'"/';
     
     let password = '';
