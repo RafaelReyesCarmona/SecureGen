@@ -36,10 +36,12 @@ void UsbHidManager::sendPassword(const char* password) {
   if (!_started) return;
       while (*password) {
         char c = (unsigned char)*password;
-        if (c == 0xC3) {
+        if (c == 0xC3 || c == 0xC2) {
           password++;
           uint8_t c2 = (unsigned char)*password;
           switch (c2) {
+            case 0xBA: sendKey('`',NO_KEY_MOD); break;      // key 'º'
+            case 0xAA: sendKey('`',KEY_LEFT_SHIFT); break;  // key 'ª'
             case 0xB1: sendKey(';',NO_KEY_MOD); break;      // key 'ñ'
             case 0x91: sendKey(';',KEY_LEFT_SHIFT); break;  // key 'Ñ'
             case 0xA1: sendKey('\'',NO_KEY_MOD); sendKey('a',NO_KEY_MOD); break;     // key 'á' 
@@ -62,14 +64,14 @@ void UsbHidManager::sendPassword(const char* password) {
             case 0x94: sendKey('[',KEY_LEFT_SHIFT); sendKey('o',KEY_LEFT_SHIFT); break;     // key 'Ô' 
             case 0xBB: sendKey('[',KEY_LEFT_SHIFT); sendKey('u',NO_KEY_MOD); break;     // key 'û' 
             case 0x9B: sendKey('[',KEY_LEFT_SHIFT); sendKey('u',KEY_LEFT_SHIFT); break;     // key 'Û' 
-            case 0xA3: sendKey('\'',KEY_LEFT_SHIFT); sendKey('a',NO_KEY_MOD); break;     // key 'ä' 
-            case 0x83: sendKey('\'',KEY_LEFT_SHIFT); sendKey('a',KEY_LEFT_SHIFT); break;     // key 'Ä' 
+            case 0xA4: sendKey('\'',KEY_LEFT_SHIFT); sendKey('a',NO_KEY_MOD); break;     // key 'ä' 
+            case 0x84: sendKey('\'',KEY_LEFT_SHIFT); sendKey('a',KEY_LEFT_SHIFT); break;     // key 'Ä' 
             case 0xAB: sendKey('\'',KEY_LEFT_SHIFT); sendKey('e',NO_KEY_MOD); break;     // key 'ë' 
             case 0x8B: sendKey('\'',KEY_LEFT_SHIFT); sendKey('e',KEY_LEFT_SHIFT); break;     // key 'Ë' 
             case 0xAF: sendKey('\'',KEY_LEFT_SHIFT); sendKey('i',NO_KEY_MOD); break;     // key 'ï' 
             case 0x8F: sendKey('\'',KEY_LEFT_SHIFT); sendKey('i',KEY_LEFT_SHIFT); break;     // key 'Ï' 
-            case 0xB5: sendKey('\'',KEY_LEFT_SHIFT); sendKey('o',NO_KEY_MOD); break;     // key 'ö' 
-            case 0x95: sendKey('\'',KEY_LEFT_SHIFT); sendKey('o',KEY_LEFT_SHIFT); break;     // key 'Ö' 
+            case 0xB6: sendKey('\'',KEY_LEFT_SHIFT); sendKey('o',NO_KEY_MOD); break;     // key 'ö' 
+            case 0x96: sendKey('\'',KEY_LEFT_SHIFT); sendKey('o',KEY_LEFT_SHIFT); break;     // key 'Ö' 
             case 0xBC: sendKey('\'',KEY_LEFT_SHIFT); sendKey('u',NO_KEY_MOD); break;     // key 'ü' 
             case 0x9C: sendKey('\'',KEY_LEFT_SHIFT); sendKey('u',KEY_LEFT_SHIFT); break;     // key 'Ü' 
           } // end switch c2
