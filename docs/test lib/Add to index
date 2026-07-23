@@ -6,7 +6,7 @@ CheckPasswordField.addEventListener('keydown', function (event) {
     const tecla = event.key;
 
     // Regex de caracteres permitidos
-    const permitidos = /^[a-z2-9ABCDEFGHJKLMNOPQRSTUVWXYñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜâêîôûÂÊÎÔÛ!@#$%&/()=?,;.:\-_º]$/;
+    const permitidos = /^[a-z2-9ABCDEFGHJKLMNOPQRSTUVWXYñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜâêîôûÂÊÎÔÛ!@#$%&/()=?,;.:\-_]$/;
 
     // Lista de teclas especiales que sí se permiten
     const especiales = [
@@ -28,7 +28,7 @@ CheckPasswordField.addEventListener('keydown', function (event) {
     const tecla = event.key;
 
     // Regex de caracteres permitidos
-    const permitidos = /^[a-z2-9ABCDEFGHJKLMNOPQRSTUVWXYñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜâêîôûÂÊÎÔÛ!@#$%&/()=?,;.:\-_º]$/;
+    const permitidos = /^[a-z2-9ABCDEFGHJKLMNOPQRSTUVWXYñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜâêîôûÂÊÎÔÛ!@#$%&/()=?,;.:\-_]$/;
 
     // Lista de teclas especiales que sí se permiten
     const especiales = [
