@@ -9,6 +9,10 @@
 #include "crypto_manager.h"
 #include "display_manager.h"
 
+#define NO_KEY_MOD      0x00
+#define BLE_SHIFT       0x02
+#define BLE_ALTGR       0x40
+
 class BleKeyboardManager : public BLEServerCallbacks, public BLESecurityCallbacks {
 private:
     BLEServer* pServer = nullptr;
@@ -63,7 +67,9 @@ public:
     void end();
     void press(uint8_t key, uint8_t modifier = 0);
     void release();
-    void print(const String& text);
+    //void print(const String& text);
+    void sendKey(char k, uint8_t m = 0);
+    void write(char k, uint8_t m = 0);
     void sendPassword(const char* password);
     void sendEnter();
     
