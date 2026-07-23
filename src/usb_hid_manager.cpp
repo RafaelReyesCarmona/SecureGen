@@ -36,12 +36,10 @@ void UsbHidManager::sendPassword(const char* password) {
   if (!_started) return;
       while (*password) {
         char c = (unsigned char)*password;
-        if (c == 0xC3 || c == 0xC2) {
+        if (c == 0xC3) {
           password++;
           uint8_t c2 = (unsigned char)*password;
           switch (c2) {
-            case 0xBA: sendKey('`',NO_KEY_MOD); break;      // key 'º'
-            case 0xAA: sendKey('`',KEY_LEFT_SHIFT); break;  // key 'ª'
             case 0xB1: sendKey(';',NO_KEY_MOD); break;      // key 'ñ'
             case 0x91: sendKey(';',KEY_LEFT_SHIFT); break;  // key 'Ñ'
             case 0xA1: sendKey('\'',NO_KEY_MOD); sendKey('a',NO_KEY_MOD); break;     // key 'á' 
@@ -75,7 +73,15 @@ void UsbHidManager::sendPassword(const char* password) {
             case 0xBC: sendKey('\'',KEY_LEFT_SHIFT); sendKey('u',NO_KEY_MOD); break;     // key 'ü' 
             case 0x9C: sendKey('\'',KEY_LEFT_SHIFT); sendKey('u',KEY_LEFT_SHIFT); break;     // key 'Ü' 
           } // end switch c2
-        } // end if 
+        } // end if
+        //if  (c == 0xC2) {
+          //password++;
+          //uint8_t c2 = (unsigned char)*password;
+          //switch (c2) {
+            //case 0xBA: sendKey('`',NO_KEY_MOD); break;      // key 'º'
+            //case 0xAA: sendKey('`',KEY_RIGHT_SHIFT); break;  // key 'ª' special key for system.
+          //} // end switch c2
+        } // end if
         switch(c) {
           case '@': sendKey('2',KEY_RIGHT_ALT); break;
           case '#': sendKey('3',KEY_RIGHT_ALT); break;

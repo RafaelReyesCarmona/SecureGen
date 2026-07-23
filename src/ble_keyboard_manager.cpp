@@ -369,7 +369,7 @@ void BleKeyboardManager::release() {
     pInputCharacteristic->setValue(report, 8);
     pInputCharacteristic->notify();
 }
-
+/*
 void BleKeyboardManager::print(const String& text) {
     int length = text.length();
     SECURITY_LOG("Secure transmission started (" + String(length) + " chars)");
@@ -394,6 +394,21 @@ void BleKeyboardManager::print(const String& text) {
     
     SECURITY_LOG("Secure transmission completed (" + String(length) + " chars)");
 }
+*/
+
+void BleKeyboardManager::sendKey(char k, uint8_t m) {
+  press(k,m); 
+  delay(50); 
+  release();
+  delay(50);
+}
+
+void BleKeyboardManager::write(char k, uint8_t m) {
+  uint8_t modifier = m;
+  uint8_t key = charToHidKey(k);
+  if (!m) modifier = charToModifier(k);
+  sendKey(key, modifier);
+}
 
 void BleKeyboardManager::sendPassword(const char* password) {
     // КРИТИЧЕСКАЯ ПРОВЕРКА
@@ -401,8 +416,83 @@ void BleKeyboardManager::sendPassword(const char* password) {
         SECURITY_LOG("ОТКАЗ: Соединение не защищено!");
         return;
     }
-    
-    print(String(password));
+    SECURITY_LOG("Secure transmission started (" + String(sizeof(password)) + " chars)");
+
+    while (*password) {
+        esp_task_wdt_reset(); // Сброс Watchdog Timer
+        if (!deviceConnected || !secureConnected) {
+            SECURITY_LOG("Connection lost at char " + String(password));
+            break;
+        }
+        char c = (unsigned char)*password;
+        
+        if (c == 0xC3) {
+          password++;
+          uint8_t c2 = (unsigned char)*password;
+          switch (c2) {
+            case 0xB1: sendKey(0x33,NO_KEY_MOD); break; // key 'ñ'
+            case 0x91: sendKey(0x33,BLE_SHIFT); break;  // key 'Ñ'
+            case 0xA1: sendKey('\'',NO_KEY_MOD); sendKey('a',NO_KEY_MOD); break;     // key 'á' 
+            case 0x81: sendKey('\'',NO_KEY_MOD); sendKey('a',BLE_SHIFT); break; // key 'Á'
+            case 0xA9: sendKey('\'',NO_KEY_MOD); sendKey('e',NO_KEY_MOD); break;     // key 'é' 
+            case 0x89: sendKey('\'',NO_KEY_MOD); sendKey('e',BLE_SHIFT); break; // key 'É'
+            case 0xAD: sendKey('\'',NO_KEY_MOD); sendKey('i',NO_KEY_MOD); break;     // key 'í' 
+            case 0x8D: sendKey('\'',NO_KEY_MOD); sendKey('i',BLE_SHIFT); break; // key 'Í'
+            case 0xB3: sendKey('\'',NO_KEY_MOD); sendKey('o',NO_KEY_MOD); break;     // key 'ó' 
+            case 0x93: sendKey('\'',NO_KEY_MOD); sendKey('o',BLE_SHIFT); break; // key 'Ó'
+            case 0xBA: sendKey('\'',NO_KEY_MOD); sendKey('u',NO_KEY_MOD); break;     // key 'ú' 
+            case 0x9A: sendKey('\'',NO_KEY_MOD); sendKey('u',BLE_SHIFT); break; // key 'Ú'
+            case 0xA2: sendKey('[',BLE_SHIFT); sendKey('a',NO_KEY_MOD); break;     // key 'â' 
+            case 0x82: sendKey('[',BLE_SHIFT); sendKey('a',BLE_SHIFT); break;     // key 'Â' 
+            case 0xAA: sendKey('[',BLE_SHIFT); sendKey('e',NO_KEY_MOD); break;     // key 'ê' 
+            case 0x8A: sendKey('[',BLE_SHIFT); sendKey('e',BLE_SHIFT); break;     // key 'Ê' 
+            case 0xAE: sendKey('[',BLE_SHIFT); sendKey('i',NO_KEY_MOD); break;     // key 'î' 
+            case 0x8E: sendKey('[',BLE_SHIFT); sendKey('i',BLE_SHIFT); break;     // key 'Î' 
+            case 0xB4: sendKey('[',BLE_SHIFT); sendKey('o',NO_KEY_MOD); break;     // key 'ô' 
+            case 0x94: sendKey('[',BLE_SHIFT); sendKey('o',BLE_SHIFT); break;     // key 'Ô' 
+            case 0xBB: sendKey('[',BLE_SHIFT); sendKey('u',NO_KEY_MOD); break;     // key 'û' 
+            case 0x9B: sendKey('[',BLE_SHIFT); sendKey('u',BLE_SHIFT); break;     // key 'Û' 
+            case 0xA4: sendKey('\'',BLE_SHIFT); sendKey('a',NO_KEY_MOD); break;     // key 'ä' 
+            case 0x84: sendKey('\'',BLE_SHIFT); sendKey('a',BLE_SHIFT); break;     // key 'Ä' 
+            case 0xAB: sendKey('\'',BLE_SHIFT); sendKey('e',NO_KEY_MOD); break;     // key 'ë' 
+            case 0x8B: sendKey('\'',BLE_SHIFT); sendKey('e',BLE_SHIFT); break;     // key 'Ë' 
+            case 0xAF: sendKey('\'',BLE_SHIFT); sendKey('i',NO_KEY_MOD); break;     // key 'ï' 
+            case 0x8F: sendKey('\'',BLE_SHIFT); sendKey('i',BLE_SHIFT); break;     // key 'Ï' 
+            case 0xB6: sendKey('\'',BLE_SHIFT); sendKey('o',NO_KEY_MOD); break;     // key 'ö' 
+            case 0x96: sendKey('\'',BLE_SHIFT); sendKey('o',BLE_SHIFT); break;     // key 'Ö' 
+            case 0xBC: sendKey('\'',BLE_SHIFT); sendKey('u',NO_KEY_MOD); break;     // key 'ü' 
+            case 0x9C: sendKey('\'',BLE_SHIFT); sendKey('u',BLE_SHIFT); break;     // key 'Ü'
+          } // end switch c2
+        //} else if  (c == 0xC2) {
+          //password++;
+          //uint8_t c2 = (unsigned char)*password;
+          //switch (c2) {
+          //  case 0xBA: sendKey('`',NO_KEY_MOD); break;      // key 'º'
+          //  case 0xAA: sendKey('`',BLE_SHIFT); break;       // key 'ª'
+          //} // end switch c2
+        }  else { // end if
+            switch(c) {
+          case '@': sendKey('2',BLE_ALTGR); break;
+          case '#': sendKey('3',BLE_ALTGR); break;
+          case '&': sendKey('6',BLE_SHIFT); break;
+          case '/': sendKey('7',BLE_SHIFT); break;
+          case '(': sendKey('8',BLE_SHIFT); break;
+          case ')': sendKey('9',BLE_SHIFT); break;
+          case '=': sendKey('0',BLE_SHIFT); break;
+          case '?': sendKey('_',BLE_SHIFT); break;
+          case '-': sendKey('/',NO_KEY_MOD); break;
+          case '_': sendKey('/',BLE_SHIFT); break;
+          case ';': sendKey(',',BLE_SHIFT); break;
+          case ':': sendKey('.',BLE_SHIFT); break;
+            default:
+                write((uint8_t)(c));
+            }
+        }
+        
+        //sendKey(c);
+        password++;
+    }   
+    //print(String(password));
 }
 
 void BleKeyboardManager::sendEnter() {
