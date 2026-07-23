@@ -711,6 +711,7 @@ void DisplayManager::turnOff() {
 #else
   ledcWrite(0, 0);
 #endif
+  tft.fillScreen(TFT_BLACK);
   tft.writecommand(0x10); // TFT_SLPIN — stops internal oscillator (~5mA saved)
 }
 
