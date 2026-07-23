@@ -151,9 +151,6 @@ void DisplayManager::init() {
     tft.init();
     _started = true;
 
-    tft.fillScreen(_currentThemeColors->background_dark); 
-    tft.setTextDatum(MC_DATUM);
-
     // Apply display rotation from config (default: 1 = landscape, USB on right)
     uint8_t rotation = configManager.getDisplayRotation();
     tft.setRotation(rotation);
@@ -193,6 +190,8 @@ void DisplayManager::init() {
     _lastDrawnTotpString = "";
     _totpContainerNeedsRedraw = true;
   }
+    tft.fillScreen(_currentThemeColors->background_dark); 
+    tft.setTextDatum(MC_DATUM);
     schedule_next_update(this, &animationManager);
 }
 
