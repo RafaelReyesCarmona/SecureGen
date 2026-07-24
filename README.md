@@ -8,6 +8,10 @@
 
 *Soporta T-Display ESP32 y T-Display-S3 adaptado a teclado español y sin caracteres ambiguos en generador de claves*
 
+Cararteres soportados:
+<br>*abcdefghijklmnñopqrstuvwxyzABCDEFGHJKLMNÑOPQRSTUVWXYZ23456789*
+<br>*!@#$%&/()=?,;.:-_áéíóúÁÉÍÓÚäëïöüÄËÏÖÜâêîôûÂÊÎÔÛ*
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PlatformIO](https://img.shields.io/badge/PlatformIO-Compatible-orange.svg)](https://platformio.org/)
 [![ESP32](https://img.shields.io/badge/ESP32-Powered-blue.svg)](https://www.espressif.com/)
